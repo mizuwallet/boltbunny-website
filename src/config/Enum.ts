@@ -1,0 +1,22 @@
+export enum APPLICATION_STATUS {
+  'RUNNING',
+  'PUASED',
+  'STOPPED_CAUSE_BY_INSUFFICIENT_BALANCE',
+  'STOPPED',
+}
+
+export enum APPLICATION_TYPE {
+  'PUBLIC',
+  'PRIVATE',
+}
+
+export enum RULE_STATUS {
+  'RUNNING',
+  'PAUSED',
+}
+
+export enum ORIGIN_STATUS {
+  'RUNNING',
+  'PAUSED',
+}
+

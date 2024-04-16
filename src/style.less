@@ -1,0 +1,62 @@
+:root {
+  font-family: 'Source Sans 3', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  @apply bg-background text-text;
+}
+
+* {
+  outline: none;
+}
+
+.page-container {
+  @apply w-full max-w-1200px mx-auto;
+}
+
+.container {
+  @apply px-2;
+}
+
+a {
+  &:hover {
+    @apply text-primary;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply mb-0;
+}
+
+h2 {
+  @apply text-3xl font-semibold;
+}
+
+h3 {
+  @apply text-2xl font-medium;
+}
+
+.ant-modal {
+  .ant-modal-content {
+    @apply bg-background text-text;
+    @apply border-1 border-solid border-text;
+  }
+
+  .ant-modal-close,
+  .ant-modal-close:hover {
+    @apply text-text;
+  }
+}
+
