@@ -117,8 +117,6 @@
     }
   };
 
-  const array = new Uint32Array(10);
-
   watch(
     () => formData.value.name,
     () => {

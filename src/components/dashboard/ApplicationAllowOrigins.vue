@@ -36,7 +36,6 @@
   import useGraphql from '@/hooks/useGraphql';
   import Button from '@/lib/Button.vue';
   import Input from '@/lib/Input.vue';
-  import useAppStore from '@/store/AppStore';
   import { message } from 'ant-design-vue';
   import { clone, isEmpty, remove } from 'lodash-es';
 
@@ -49,7 +48,6 @@
 
   const emits = defineEmits(['refresh']);
 
-  const appStore = useAppStore();
   const { updateOriginByAppId } = useGraphql();
 
   const originURL = ref('');
