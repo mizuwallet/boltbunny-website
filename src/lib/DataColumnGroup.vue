@@ -10,11 +10,14 @@
 </template>
 
 <script lang="ts" setup>
-  withDefaults(
+  const props = withDefaults(
     defineProps<{
       narrow?: boolean;
+      direct?: 'horizontal' | 'vertical';
     }>(),
-    { narrow: false },
+    { narrow: false, direct: 'horizontal' },
   );
+
+  provide('direct', props.direct);
 </script>
 

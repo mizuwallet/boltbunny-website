@@ -1,3 +1,4 @@
+import { CURRENT_NETWORK } from '@/config';
 import { MoveFunctionId } from '@aptos-labs/ts-sdk';
 import { message } from 'ant-design-vue';
 import BigNumber from 'bignumber.js';
@@ -45,9 +46,16 @@ export const NumeralFormat = (num: number | string) => {
   return numeral(num).format('0.[0]a');
 };
 
+export const NumberWithDecimal = (num: number | string, decimal: number = 8) => {
+  return new BigNumber(num)
+    .shiftedBy(-1 * decimal)
+    .dp(5)
+    .toFormat();
+};
+
 export const OpenFunctionExplorer = (
   functionStr: MoveFunctionId,
-  network: string = import.meta.env.VITE_APP_NETWORK,
+  network: string = CURRENT_NETWORK,
 ) => {
   const [contract, module, functionId] = functionStr.split('::');
   window.open(
@@ -56,5 +64,9 @@ export const OpenFunctionExplorer = (
     )}/${encodeURIComponent(functionId)}?network=${network}`,
     '_blank',
   );
+};
+
+export const OpenTransactionExplorer = (txId: string, network: string = CURRENT_NETWORK) => {
+  window.open(`https://explorer.aptoslabs.com/txn/${txId}?network=${network}`, '_blank');
 };
 

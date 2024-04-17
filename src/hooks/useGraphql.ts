@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_LS, AptosClient } from '@/config';
+import { ACCESS_TOKEN_LS, AptosClient, CURRENT_NETWORK } from '@/config';
 import { RULE_STATUS } from '@/config/Enum';
 import useAppStore from '@/store/AppStore';
 import { MoveFunctionId } from '@aptos-labs/ts-sdk';
@@ -269,6 +269,58 @@ const useGraphql = () => {
     );
   };
 
+  const getDepositHistory = async (address: string) => {
+    return await GQL_Client.request(
+      gql`
+        query GetTestnetDepositAmount($address: String!) {
+          fungible_asset_activities_${CURRENT_NETWORK}_aggregate(
+            where: {
+              owner_address: { _eq: $address }
+              asset_type: { _eq: "0x1::aptos_coin::AptosCoin" }
+              is_transaction_success: { _eq: true }
+              type: { _eq: "0x1::coin::DepositEvent" }
+            }
+          ) {
+            aggregate {
+              sum {
+                amount
+              }
+            }
+          }
+          fungible_asset_activities_${CURRENT_NETWORK}(
+            where: {
+              owner_address: { _eq: $address }
+              asset_type: { _eq: "0x1::aptos_coin::AptosCoin" }
+              is_transaction_success: { _eq: true }
+              type: { _eq: "0x1::coin::DepositEvent" }
+            }
+          ) {
+            amount
+            asset_type
+            block_height
+            entry_function_id_str
+            event_index
+            gas_fee_payer_address
+            inserted_at
+            is_frozen
+            is_gas_fee
+            is_transaction_success
+            owner_address
+            storage_id
+            storage_refund_amount
+            token_standard
+            transaction_timestamp
+            transaction_version
+            type
+          }
+        }
+      `,
+      {
+        address,
+      },
+    );
+  };
+
   const getTransactionHistory = async () => {};
 
   return {
@@ -285,6 +337,7 @@ const useGraphql = () => {
     updateOriginByAppId,
 
     getTransactionHistory,
+    getDepositHistory,
   };
 };
 
