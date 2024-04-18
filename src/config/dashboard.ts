@@ -16,6 +16,11 @@ export const DASHBOARD_NAV = [
     path: '/dashboard/deposit',
   },
   {
+    label: 'Transactions',
+    icon: 'fa-solid fa-arrows-left-right',
+    path: '/dashboard/transactions',
+  },
+  {
     label: 'Docs',
     icon: 'fa-solid fa-book',
     path: 'https://google.com',

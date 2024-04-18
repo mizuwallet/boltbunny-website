@@ -10,6 +10,7 @@ import {
   faAnglesLeft,
   faAnglesRight,
   faArrowsDownToLine,
+  faArrowsLeftRight,
   faBars,
   faBook,
   faC,
@@ -69,6 +70,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   faPause,
   faTrashCan,
   faArrowsDownToLine,
+  faArrowsLeftRight,
 ].forEach((icon: any) => {
   library.add(icon);
 });

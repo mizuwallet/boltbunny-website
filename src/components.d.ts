@@ -15,6 +15,7 @@ declare module 'vue' {
     ApplicationType: typeof import('./components/dashboard/ApplicationType.vue')['default']
     ConnectButton: typeof import('./components/ConnectButton.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
+    NetworkTag: typeof import('./components/NetworkTag.vue')['default']
     NoData: typeof import('./components/NoData.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

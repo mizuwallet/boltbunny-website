@@ -9,16 +9,20 @@
     }"
   >
     <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
-      <span class="text-6 font-semibold text-text truncate">{{ data.name }}</span>
+      <span class="flex-col text-6 font-semibold text-text truncate">
+        <NetworkTag :network="data.network"></NetworkTag>
+
+        {{ data.name }}
+      </span>
       <span class="text-xs text-text/50">
         {{ dayjs(data.created_at).format('YYYY-MM-DD HH:mm') }}
       </span>
     </div>
-    <div class="flex items-center gap-2 text-xs">
+    <!-- <div class="flex items-center gap-2 text-xs">
       <span>Balance: 1023.213 APT</span>
       <span>Transaction: 12301230</span>
       <span>User: 123891203</span>
-    </div>
+    </div> -->
   </div>
 </template>
 

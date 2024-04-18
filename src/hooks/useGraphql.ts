@@ -94,6 +94,7 @@ const useGraphql = () => {
               name
               created_at
               status
+              network
             }
             applications_aggregate {
               aggregate {
@@ -123,6 +124,7 @@ const useGraphql = () => {
             user_id
             type
             allowed_origins
+            network
             rule {
               created_at
               entry_function_str
@@ -170,12 +172,13 @@ const useGraphql = () => {
       moduleName: module,
     });
 
-    const targetFunction = result.abi.exposed_functions.filter((f: any) => f.name === functionId);
+    const targetFunction = result.abi.exposed_functions.filter(
+      (f: any) => f.name === functionId,
+    )?.[0];
 
     if (!targetFunction) {
       throw new Error("The function doesn't exist.");
     }
-
     if (!targetFunction.is_entry) {
       throw new Error('The function should be the entry function.');
     }
@@ -297,18 +300,7 @@ const useGraphql = () => {
           ) {
             amount
             asset_type
-            block_height
-            entry_function_id_str
-            event_index
-            gas_fee_payer_address
-            inserted_at
-            is_frozen
-            is_gas_fee
             is_transaction_success
-            owner_address
-            storage_id
-            storage_refund_amount
-            token_standard
             transaction_timestamp
             transaction_version
             type
@@ -321,7 +313,57 @@ const useGraphql = () => {
     );
   };
 
-  const getTransactionHistory = async () => {};
+  const getTransactionHistory = async (
+    address: string,
+    options: {
+      limit: number;
+      offset: number;
+    } = {
+      limit: 10,
+      offset: 0,
+    },
+  ) => {
+    return await GQL_Client.request(
+      gql`
+        query MyQuery($address: String!, $limit: Int!, $offset: Int!) {
+          transaction(
+            where: { login_user: { address: { _eq: $address } } }
+            order_by: { created_at: desc }
+            limit: $limit
+            offset: $offset
+          ) {
+            application {
+              name
+              network
+            }
+            hash
+            id
+            gas_fee
+            created_at
+            application_id
+            network
+            rule {
+              entry_function_str
+            }
+            point_recording {
+              gas_points
+              service_points
+              total_points
+            }
+          }
+          transaction_aggregate {
+            aggregate {
+              count(columns: hash)
+            }
+          }
+        }
+      `,
+      {
+        address,
+        ...options,
+      },
+    );
+  };
 
   return {
     login,

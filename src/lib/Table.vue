@@ -13,7 +13,13 @@
               position: col.sticky ? 'sticky' : 'relative',
             }"
           >
-            <span class="flex gap-2 w-full justify-center items-center">
+            <span
+              class="flex gap-2 w-full justify-center items-center px-4"
+              :class="{
+                '!justify-start': col.left,
+                '!justify-end': col.right,
+              }"
+            >
               {{ col.label }}
               <Popover v-if="col.labelInfo" placement="right">
                 <template #content>
@@ -83,7 +89,7 @@
       <tbody class="table-row-group lg:hidden">
         <tr v-for="(data, index) in tableData" :key="index" @click="() => rowClick?.(data)">
           <td>
-            <slot name="mobile-td" :index="index" :record="data"></slot>
+            <slot name="mobile-td" :index="index" :record="data" :cols="columns"></slot>
           </td>
         </tr>
       </tbody>
@@ -179,6 +185,7 @@
 <script lang="ts" setup>
   import { Popover } from 'ant-design-vue';
   import { toRaw } from 'vue';
+  import Spiner from './Spiner.vue';
   const props = defineProps(['datas', 'columns', 'rowClick', 'page', 'pagination', 'loading']);
 
   const tableData = ref<any[]>(props.datas);

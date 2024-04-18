@@ -11,7 +11,8 @@
     </div>
 
     <div class="mt-2" v-if="appInfo.id">
-      <h2 class="text-4xl text-primary font-bold my-4">
+      <NetworkTag :network="appInfo.network"></NetworkTag>
+      <h2 class="text-4xl text-primary font-bold mt-1">
         {{ appInfo.name }}
         <span class="text-xs text-gray">
           {{ ShortDataFormat(appInfo.created_at) }}

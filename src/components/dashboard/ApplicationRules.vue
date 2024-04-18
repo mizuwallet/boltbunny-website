@@ -106,6 +106,7 @@
       await createRule(entryFunctionRule.value as MoveFunctionId, props.appId);
       message.success('Successfully Added');
       entryFunctionRule.value = '';
+      init();
     } catch (e: any) {
       message.error(e.message);
     } finally {

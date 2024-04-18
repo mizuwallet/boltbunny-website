@@ -66,7 +66,7 @@
       >
         <span
           @click="OpenTransactionExplorer(row.transaction_version)"
-          class="flex items-center gap-1 cursor-pointer text-sm"
+          class="flex items-center gap-1 cursor-pointer text-sm underline decoration-dashed decoration-text/30"
         >
           {{ DateFormat(row.transaction_timestamp) }}
           <font-awesome-icon icon="fa-solid fa-external-link"></font-awesome-icon>
@@ -83,6 +83,11 @@
         </span>
       </div>
     </div>
+    <div>
+      Deposited Total:
+      <span class="text-primary font-bold text-5">{{ NumberFormat(totalPoint) }}</span>
+      Points
+    </div>
   </div>
 </template>
 
@@ -96,7 +101,13 @@
   import Input from '@/lib/Input.vue';
   import Panel from '@/lib/Panel.vue';
   import useAppStore from '@/store/AppStore';
-  import { DateFormat, NumberWithDecimal, OpenTransactionExplorer, copy } from '@/utils';
+  import {
+    DateFormat,
+    NumberFormat,
+    NumberWithDecimal,
+    OpenTransactionExplorer,
+    copy,
+  } from '@/utils';
   import { InputTransactionData } from '@aptos-labs/wallet-adapter-core';
   import { QRCode, message } from 'ant-design-vue';
   import BigNumber from 'bignumber.js';
@@ -176,7 +187,8 @@
       const result: any = await getDepositHistory(depositAddress.value);
       depositHistory.value = result?.[`fungible_asset_activities_${CURRENT_NETWORK}`];
       totalDepositAmount.value =
-        result?.[`fungible_asset_activities_${CURRENT_NETWORK}_aggregate`]?.aggregate?.sum?.amount;
+        result?.[`fungible_asset_activities_${CURRENT_NETWORK}_aggregate`]?.aggregate?.sum
+          ?.amount || 0;
       totalPoint.value = totalDepositAmount.value;
     }
   };
