@@ -86,6 +86,17 @@ const useAppStore = defineStore('appStore', (): AppStore => {
     }, 1000);
   }
 
+  watch(
+    () => address.value,
+    () => {
+      if (window.localStorage.getItem(ACCESS_TOKEN_LS) && jwtAddress.value != address.value) {
+        window.open('/', '_self');
+        accessToken.value = '';
+        window.localStorage.removeItem(ACCESS_TOKEN_LS);
+      }
+    },
+  );
+
   const loadJwtToken = () => {
     const jwt = window.localStorage.getItem(ACCESS_TOKEN_LS);
     if (jwt) {
@@ -93,24 +104,18 @@ const useAppStore = defineStore('appStore', (): AppStore => {
       decodeUserInfo(jwt);
     } else {
       accessToken.value = '';
-      // TODO: remove useInfo
     }
   };
 
   const decodeUserInfo = (jwtStr: string) => {
     if (jwtStr) {
       const jwt: any = jwtDecode(jwtStr);
-      console.log(jwt);
-      // jwt is expired
+
       if ((jwt.exp || 0) * 1e3 < Date.now()) {
         window.localStorage.removeItem(ACCESS_TOKEN_LS);
         return;
       }
       jwtAddress.value = jwt.address;
-
-      if (jwtAddress.value != address.value) {
-        // TODO: check if address is not match with jwt address
-      }
       userId.value = jwt['https://hasura.io/jwt/claims']['x-hasura-user-id'];
     }
   };

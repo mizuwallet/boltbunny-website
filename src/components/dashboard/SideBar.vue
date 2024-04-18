@@ -47,7 +47,7 @@
     </div>
 
     <div
-      class="absolute bottom-0 left-0 right-0 h-12 p-4 border-t-1 border-t-text/10 border-t-solid cursor-pointer hover:bg-text/5 tranistion-all"
+      class="absolute bottom-0 left-0 right-0 p-4 border-t-1 border-t-text/10 border-t-solid cursor-pointer hover:bg-text/5 tranistion-all"
       @click="emits('update:collapsed', !collapsed)"
     >
       <div class="flex w-full gap-2 items-center overflow-hidden" v-if="!collapsed">

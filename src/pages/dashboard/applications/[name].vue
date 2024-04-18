@@ -48,6 +48,10 @@
 
         <Panel>
           <h2>Allow Origins</h2>
+          <span text="gray" class="-mt-5 flex items-center gap-1">
+            <font-awesome-icon icon="fa-solid fa-circle-info" class="w-3 h-3"></font-awesome-icon>
+            If no origin is specified, it means there will be no restrictions on Origin.
+          </span>
           <ApplicationAllowOrigins
             :appId="appInfo.id"
             :allow-origins="appInfo.allowed_origins || []"

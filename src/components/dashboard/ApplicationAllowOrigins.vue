@@ -7,7 +7,7 @@
 
     <NoData v-if="isEmpty(allowOrigins)" />
     <div class="flex-col gap-2 mt-2" v-else>
-      <div class="flex-col !gap-1 overflow-x-scroll max-w-full">
+      <div class="flex-col !gap-1 overflow-x-auto max-w-full">
         <div
           class="flex-2 p-2 bg-primary/5 rounded-1 px-3 relative"
           v-for="(origin, index) in allowOrigins"
@@ -16,7 +16,7 @@
           <a
             :href="origin"
             target="_blank"
-            class="cursor-pointer hover:text-primary max-w-2/3 lg:max-w-full overflow-x-scroll"
+            class="cursor-pointer hover:text-primary max-w-2/3 lg:max-w-full overflow-x-auto"
           >
             {{ origin }}
           </a>

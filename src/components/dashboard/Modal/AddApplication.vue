@@ -2,7 +2,7 @@
   <Modal class="!w-full md:!w-120" centered :footer="false">
     <h1 class="text-4xl py-4 font-bold text-center">Create Application</h1>
     <Form class="flex-col w-full">
-      <FormItem label="Application Name" info="10 ~ 20 characters: [A-Za-z0-9]">
+      <FormItem label="Application Name" info="4 ~ 20 characters: [A-Za-z0-9]">
         <Input class="!h-10" v-model:model-value="formData.name" maxlength="20" />
         <span class="text-red text-xs" v-if="!validate.name">Invalid Application Name</span>
       </FormItem>
@@ -58,10 +58,6 @@
     {
       label: 'TESTNET',
       value: 'testnet',
-    },
-    {
-      label: 'DEVNET',
-      value: 'devnet',
     },
   ];
 
