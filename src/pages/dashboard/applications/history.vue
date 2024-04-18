@@ -1,9 +1,6 @@
 <template></template>
 
-<script lang="ts" setup>
-  import useGraphql from '@/hooks/useGraphql';
-  const { getTransactionHistory } = useGraphql();
-</script>
+<script lang="ts" setup></script>
 
 <style leng="less" scoped></style>
 
