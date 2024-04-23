@@ -17,12 +17,8 @@
   import Button from '@/lib/Button.vue';
   import Input from '@/lib/Input.vue';
   import useAppStore from '@/store/AppStore';
-  import { SimpleTransaction } from '@aptos-labs/ts-sdk';
-  import { message } from 'ant-design-vue';
-  import { GraphQLClient, gql } from 'graphql-request';
-  // PjozjR6sWtoVuCnzBUt1WP48hac9sqbQ
-
-  //
+  import { Network, SimpleTransaction } from '@aptos-labs/ts-sdk';
+  import { BoltBunnyClient } from '@boltbunny/ts-sdk';
 
   const functionId =
     '0x4aa91a2878c2050fad21187c7bce5ed7c55831ab1b099acc01e3a6579f9b60c7::FuzzPass::mint';
@@ -43,32 +39,19 @@
 
     const signature = await appStore.walletCore.signTransaction(txn);
 
-    const GQL_Client = new GraphQLClient(import.meta.env.VITE_APP_GRAPHQL_URL, {
-      headers: () => ({
-        'x-alcove-app-secret': `PjozjR6sWtoVuCnzBUt1WP48hac9sqbQ`,
-      }),
+    const bbClient = new BoltBunnyClient({
+      APISecretKey: 'PjozjR6sWtoVuCnzBUt1WP48hac9sqbQ',
+      network: Network.TESTNET,
     });
 
-    console.log(txn.rawTransaction);
-
     try {
-      const result: any = await GQL_Client.request(
-        gql`
-          mutation submitTransaction($signature: String!, $transaction: String!) {
-            submitTransaction(txnParams: { signature: $signature, transaction: $transaction }) {
-              transactionHash
-            }
-          }
-        `,
-        {
-          signature: signature.bcsToHex().toString(),
-          transaction: txn.rawTransaction.bcsToHex().toString(),
-        },
-      );
+      const result: any = await bbClient.sendTransaction({
+        signature: signature.bcsToHex().toString(),
+        transaction: txn.rawTransaction.bcsToHex().toString(),
+      });
       alert(JSON.stringify(result));
     } catch (e: any) {
       console.log(e);
-      message.error(e.response.errors[0].message);
     }
   };
 
@@ -95,30 +78,19 @@
 
     const signature = await appStore.walletCore.signTransaction(txn);
 
-    const GQL_Client = new GraphQLClient(import.meta.env.VITE_APP_GRAPHQL_URL, {
-      headers: () => ({
-        'x-alcove-app-secret': custome.value.secretKey,
-      }),
+    const bbClient = new BoltBunnyClient({
+      APISecretKey: custome.value.secretKey,
+      network: Network.TESTNET,
     });
 
     try {
-      const result: any = await GQL_Client.request(
-        gql`
-          mutation submitTransaction($signature: String!, $transaction: String!) {
-            submitTransaction(txnParams: { signature: $signature, transaction: $transaction }) {
-              transactionHash
-            }
-          }
-        `,
-        {
-          signature: signature.bcsToHex().toString(),
-          transaction: txn.rawTransaction.bcsToHex().toString(),
-        },
-      );
+      const result: any = await bbClient.sendTransaction({
+        signature: signature.bcsToHex().toString(),
+        transaction: txn.rawTransaction.bcsToHex().toString(),
+      });
       alert(JSON.stringify(result));
     } catch (e: any) {
       console.log(e);
-      message.error(e.response.errors[0].message);
     }
   };
 </script>

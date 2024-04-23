@@ -1,6 +1,7 @@
 <template>
   <div class="relative" ref="boxRef">
     <div class="select-input" ref="selectRef" @click="showDropdown = !showDropdown">
+      <div class="placeholder" v-if="!currentValue">{{ placeholder }}</div>
       {{ currentValue?.label || currentValue }}
 
       <font-awesome-icon
@@ -9,6 +10,13 @@
           '-rotate-180': showDropdown,
         }"
         icon="fa-solid fa-chevron-down"
+        v-if="!currentValue"
+      ></font-awesome-icon>
+      <font-awesome-icon
+        class="w-3 h-3 transition-all ml-auto"
+        icon="fa-solid fa-xmark"
+        v-if="currentValue"
+        @click.stop="emits('update:modalValue', null)"
       ></font-awesome-icon>
     </div>
 
@@ -50,7 +58,7 @@
   const { x, y, width, height } = useElementBounding(selectRef);
 
   const showDropdown = ref(false);
-  const props = defineProps<{ modalValue: any; options: any[] }>();
+  const props = defineProps<{ modalValue: any; options: any[]; placeholder: string }>();
   const emits = defineEmits(['update:modalValue']);
 
   onClickOutside(boxRef, () => {
@@ -74,10 +82,15 @@
 
 <style lang="less" scoped>
   .select-input {
-    @apply p-2 px-4 h-10;
+    @apply p-2 px-4 h-10 relative;
     @apply cursor-pointer bg-accent/15;
     @apply border-1 border-solid border-primary/10 hover:border-primary rounded-1;
     @apply flex items-center justify-between;
+
+    .placeholder {
+      @apply absolute left-0 right-0 top-0 bottom-0 flex items-center px-4 pointer-events-none;
+      @apply text-gray;
+    }
   }
 
   .dropdown {

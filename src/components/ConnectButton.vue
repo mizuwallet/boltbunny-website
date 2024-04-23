@@ -11,6 +11,8 @@
     <span>
       Hi,
       <span class="font-semibold">{{ ShortAddress(appStore.address) }}</span>
+      ,
+      <span class="underline cursor-pointer" @click="logout">logout</span>
     </span>
     <Button
       class="!h-8 frame"
@@ -63,7 +65,7 @@
   import { message } from 'ant-design-vue';
 
   const appStore = useAppStore();
-  const { login } = useGraphql();
+  const { login, logout } = useGraphql();
 
   const signing = ref(false);
   const connectedHandler = async () => {

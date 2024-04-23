@@ -62,6 +62,18 @@ const useGraphql = () => {
     }
   };
 
+  const logout = async () => {
+    appStore.address = '';
+    appStore.accessToken = '';
+    appStore.balance = 0;
+    appStore.jwtAddress = '';
+    appStore.userId = null;
+    appStore.connecting = false;
+    appStore.connectModalOpen = false;
+    appStore.walletCore.disconnect();
+    localStorage.removeItem(ACCESS_TOKEN_LS);
+  };
+
   const createApp = async (params: CreateAppParams) => {
     await GQL_Client.request(
       gql`
@@ -100,6 +112,24 @@ const useGraphql = () => {
               aggregate {
                 count
               }
+            }
+          }
+        }
+      `,
+      {
+        userId: appStore.userId,
+      },
+    );
+  };
+
+  const getAppListByTransactionFiltered = async () => {
+    return await GQL_Client.request(
+      gql`
+        query getAppListByTransactionFiltered($userId: bigint!) {
+          transaction(where: { user_id: { _eq: $userId } }, distinct_on: application_id) {
+            application {
+              name
+              id
             }
           }
         }
@@ -316,18 +346,24 @@ const useGraphql = () => {
   const getTransactionHistory = async (
     address: string,
     options: {
+      ids?: string[] | null;
       limit: number;
       offset: number;
     } = {
+      ids: null,
       limit: 10,
       offset: 0,
     },
   ) => {
     return await GQL_Client.request(
       gql`
-        query MyQuery($address: String!, $limit: Int!, $offset: Int!) {
+        query MyQuery($address: String!, $limit: Int!, $offset: Int! ${
+          options.ids?.length ? ', $ids: [bigint] = ""' : ''
+        }) {
           transaction(
-            where: { login_user: { address: { _eq: $address } } }
+            where: { login_user: { address: { _eq: $address } } ${
+              options.ids?.length ? ', application_id: {_in: $ids}}' : '}'
+            } 
             order_by: { created_at: desc }
             limit: $limit
             offset: $offset
@@ -351,25 +387,35 @@ const useGraphql = () => {
               total_points
             }
           }
-          transaction_aggregate {
+          transaction_aggregate( where: { login_user: { address: { _eq: $address } } ${
+            options.ids?.length ? ', application_id: {_in: $ids}}' : '}'
+          } ) {
             aggregate {
               count(columns: hash)
             }
           }
         }
       `,
-      {
-        address,
-        ...options,
-      },
+      options.ids?.length
+        ? {
+            address,
+            ...options,
+          }
+        : {
+            address,
+            limit: options.limit,
+            offset: options.offset,
+          },
     );
   };
 
   return {
     login,
+    logout,
 
     createApp,
     getAppListByUserId,
+    getAppListByTransactionFiltered,
     getAppByAppName,
     getDepositAddressByUserId,
 

@@ -33,6 +33,7 @@ import {
   faSignOut,
   faSpinner,
   faUser,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 /* add icons to the library */
@@ -71,6 +72,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   faTrashCan,
   faArrowsDownToLine,
   faArrowsLeftRight,
+  faXmark,
 ].forEach((icon: any) => {
   library.add(icon);
 });

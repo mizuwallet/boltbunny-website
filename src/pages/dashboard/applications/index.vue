@@ -49,8 +49,6 @@
   import useGraphql from '@/hooks/useGraphql';
   import Button from '@/lib/Button.vue';
   import Input from '@/lib/Input.vue';
-  import { Network } from '@aptos-labs/ts-sdk';
-  import { BoltBunnyClient } from '@boltbunnn/ts-sdk';
 
   const applicationNameSearchKeyWord = ref('');
   const openAddApplicationModal = ref(false);
@@ -81,14 +79,6 @@
   onMounted(() => {
     init();
   });
-
-  const bbclient = new BoltBunnyClient({
-    network: Network.TESTNET,
-    APISecretKey: '123123',
-  });
-
-  bbclient.sendTransaction();
-  console.log('123');
 </script>
 
 <route lang="yaml">

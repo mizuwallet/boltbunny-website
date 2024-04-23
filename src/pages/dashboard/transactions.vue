@@ -1,7 +1,16 @@
 <template>
   <h2>Transactions</h2>
+  <div class="flex items-center gap-4 mt-6">
+    <Select
+      placeholder="ApplicationName"
+      v-model:modal-value="applicationName"
+      :options="applicationList"
+      class="w-50"
+    ></Select>
+  </div>
+
   <Table
-    class="mt-10 text-sm"
+    class="mt-4 text-sm"
     :datas="list"
     :columns="HistoryTableColumns"
     :loading="loading"
@@ -36,7 +45,7 @@
     </template>
 
     <template #hash="{ record }">
-      <span class="flex-col items-end px-4">
+      <span class="flex-col items-end px-4" @click="OpenTransactionExplorer(record.hash)">
         <span
           class="cursor-pointer hover:underline flex w-fit items-center gap-2 underline decoration-dashed decoration-text/30"
         >
@@ -84,6 +93,7 @@
             <span class="flex-col items-end">
               <span
                 class="cursor-pointer hover:underline flex w-fit items-center gap-2 underline decoration-dashed decoration-text/30"
+                @click="OpenTransactionExplorer(record.hash)"
               >
                 {{ ShortAddress(record.hash) }}
                 <font-awesome-icon
@@ -104,12 +114,13 @@
   import useGraphql from '@/hooks/useGraphql';
   import DataColumnGroup from '@/lib/DataColumnGroup.vue';
   import DataColumnItem from '@/lib/DataColumnItem.vue';
+  import Select from '@/lib/Select.vue';
   import Table from '@/lib/Table.vue';
   import useAppStore from '@/store/AppStore';
-  import { DateFormat, ShortAddress } from '@/utils';
+  import { DateFormat, OpenTransactionExplorer, ShortAddress } from '@/utils';
 
   const appStore = useAppStore();
-  const { getTransactionHistory } = useGraphql();
+  const { getTransactionHistory, getAppListByTransactionFiltered } = useGraphql();
 
   const HistoryTableColumns = [
     {
@@ -130,6 +141,9 @@
     },
   ];
 
+  const applicationName = ref('');
+  const applicationList = ref<any[]>([]);
+
   const list = ref<any[]>([]);
   const total = ref(0);
   const loading = ref(false);
@@ -143,6 +157,7 @@
       const result: any = await getTransactionHistory(appStore.address, {
         limit: limit.value,
         offset: (page.value - 1) * 10,
+        ids: applicationName.value ? [applicationName.value] : [],
       });
       list.value = result?.transaction || [];
       total.value = result?.transaction_aggregate?.aggregate?.count || 0;
@@ -163,9 +178,24 @@
     () => appStore.address,
     () => {
       init();
+
+      getAppListByTransactionFiltered().then((res: any) => {
+        applicationList.value = res.transaction.map((app: any) => ({
+          label: app.application.name,
+          value: app.application.id,
+        }));
+      });
     },
     {
       immediate: true,
+    },
+  );
+
+  watch(
+    () => applicationName.value,
+    () => {
+      page.value = 1;
+      init();
     },
   );
 </script>
