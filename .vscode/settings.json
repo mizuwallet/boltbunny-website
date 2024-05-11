@@ -5,6 +5,7 @@
   "vue.codeActions.enabled": true,
   "i18n-ally.localesPaths": ["src/locals"],
   "i18n-ally.keystyle": "nested",
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "less.lint.unknownAtRules": "ignore",
 }
 
