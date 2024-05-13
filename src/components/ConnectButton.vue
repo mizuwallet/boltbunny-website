@@ -20,7 +20,11 @@
       <Button class="!h-8">Dashboard</Button>
     </router-link>
     <div
-      class="absolute w-50 top-7 py-2 right-1000 opacity-0 z-10 rounded-2 mt-1 shadow-black/5 shadow-lg group-hover:opacity-100 group-hover:right-0"
+      class="absolute w-50 top-7 py-2 opacity-0 z-10 rounded-2 mt-1 shadow-black/5 shadow-lg group-hover:opacity-100"
+      :class="{
+        'left-1000 group-hover:left-0': placement == 'left',
+        'right-1000 group-hover:right-0': placement == 'right',
+      }"
     >
       <div class="bg-black border-1 border-solid border-white/30 rounded-2">
         <span class="flex-col px-2 py-3 cursor-pointer" v-if="appStore.address">
@@ -79,6 +83,15 @@
   import useAppStore from '@/store/AppStore';
   import { ShortAddress, copy } from '@/utils';
   import { message } from 'ant-design-vue';
+
+  withDefaults(
+    defineProps<{
+      placement: 'left' | 'right';
+    }>(),
+    {
+      placement: 'right',
+    },
+  );
 
   const appStore = useAppStore();
   const { login, logout } = useGraphql();

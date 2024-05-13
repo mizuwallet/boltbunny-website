@@ -33,7 +33,7 @@
         >
           {{ item.title }}
         </router-link>
-        <ConnectButton class="md:hidden"></ConnectButton>
+        <ConnectButton class="md:hidden" placement="left"></ConnectButton>
       </nav>
     </a-drawer>
   </div>
