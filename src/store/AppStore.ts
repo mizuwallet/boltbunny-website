@@ -68,23 +68,24 @@ const useAppStore = defineStore('appStore', (): AppStore => {
     }
   };
 
-  if (autoConnect) {
-    setTimeout(async () => {
-      if (window.localStorage.getItem(WALLET_NAME)) {
-        try {
-          connecting.value = true;
-          await walletCore.connect(window.localStorage.getItem(WALLET_NAME) as string);
-          address.value = walletCore.account?.address;
-        } catch (e: any) {
-          console.log(e);
-        } finally {
-          connecting.value = false;
-        }
-      } else {
-        connecting.value = false;
-      }
-    }, 1000);
-  }
+  // put it dashboard
+  // if (autoConnect) {
+  //   setTimeout(async () => {
+  //     if (window.localStorage.getItem(WALLET_NAME)) {
+  //       try {
+  //         connecting.value = true;
+  //         await walletCore.connect(window.localStorage.getItem(WALLET_NAME) as string);
+  //         address.value = walletCore.account?.address;
+  //       } catch (e: any) {
+  //         console.log(e);
+  //       } finally {
+  //         connecting.value = false;
+  //       }
+  //     } else {
+  //       connecting.value = false;
+  //     }
+  //   }, 1000);
+  // }
 
   watch(
     () => address.value,
