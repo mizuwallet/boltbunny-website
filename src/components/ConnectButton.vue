@@ -7,13 +7,7 @@
   >
     Connect Wallet
   </Button>
-  <span class="flex flex-col md:flex-row items-center gap-1 md:gap-4" v-else>
-    <span>
-      Hi,
-      <span class="font-semibold">{{ ShortAddress(appStore.address) }}</span>
-      ,
-      <span class="underline cursor-pointer" @click="logout">logout</span>
-    </span>
+  <span class="flex flex-col md:flex-row items-center gap-1 md:gap-4 w-fit" v-else>
     <Button
       class="!h-8 frame"
       @click="connectedHandler"
@@ -25,6 +19,10 @@
     <router-link to="/dashboard">
       <Button class="!h-8">Dashboard</Button>
     </router-link>
+    <span class="flex-col items-end">
+      <span class="font-semibold">{{ ShortAddress(appStore.address) }}</span>
+      <span class="underline cursor-pointer text-xs" @click="logout">logout</span>
+    </span>
   </span>
   <!-- <div ref="connectBtnContainer" v-else>
     <Popover placement="bottom" :get-popup-container="() => connectBtnContainer">

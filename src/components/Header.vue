@@ -14,8 +14,8 @@
       <div class="flex-center md:hidden w-10 h-10" @click="openMenu = true">
         <font-awesome-icon icon="fa-solid fa-bars" class="cursor-default"></font-awesome-icon>
       </div>
-      <div class="ml-auto flex gap-4 items-center">
-        <!-- <ConnectButton></ConnectButton> -->
+      <div class="hidden ml-auto md:flex gap-4 items-center">
+        <ConnectButton></ConnectButton>
       </div>
     </div>
     <a-drawer
@@ -24,7 +24,7 @@
       placement="left"
       style="background-color: rgba(30, 34, 36, 0.9)"
     >
-      <nav class="flex flex-col gap-20 uppercase">
+      <nav class="flex flex-col gap-10 uppercase">
         <router-link
           :to="item.link"
           v-for="(item, index) in navList"
@@ -33,6 +33,7 @@
         >
           {{ item.title }}
         </router-link>
+        <ConnectButton class="md:hidden"></ConnectButton>
       </nav>
     </a-drawer>
   </div>
@@ -93,3 +94,4 @@
     }
   }
 </style>
+

@@ -20,11 +20,11 @@ export const DASHBOARD_NAV = [
     icon: 'fa-solid fa-arrows-left-right',
     path: '/dashboard/transactions',
   },
-  {
-    label: 'Docs',
-    icon: 'fa-solid fa-book',
-    path: 'https://google.com',
-  },
+  // {
+  //   label: 'Docs',
+  //   icon: 'fa-solid fa-book',
+  //   path: 'https://google.com',
+  // },
   {
     label: 'Home',
     icon: 'fa-solid fa-home',
