@@ -7,7 +7,7 @@
   >
     Connect Wallet
   </Button>
-  <span class="flex flex-col items-center gap-1 w-fit" v-else>
+  <span class="flex flex-col items-center gap-1 w-fit relative group" v-else>
     <Button
       class="!h-8 frame"
       @click="connectedHandler"
@@ -19,10 +19,28 @@
     <router-link to="/dashboard" v-if="appStore.accessToken">
       <Button class="!h-8">Dashboard</Button>
     </router-link>
-    <span class="flex-col items-end">
-      <span class="font-semibold">{{ ShortAddress(appStore.address) }}</span>
-      <span class="underline cursor-pointer text-xs" @click="logout">logout</span>
-    </span>
+    <div
+      class="absolute w-50 top-7 py-2 right-1000 opacity-0 z-10 rounded-2 mt-1 shadow-black/5 shadow-lg group-hover:opacity-100 group-hover:right-0"
+    >
+      <div class="bg-black border-1 border-solid border-white/30 rounded-2">
+        <span class="flex-col px-2 py-3 cursor-pointer" v-if="appStore.address">
+          <span
+            class="py-2 hover:bg-white/30 px-2 rounded-1 flex items-center justify-between font-semibold"
+            @click="copy(appStore.address!)"
+          >
+            {{ ShortAddress(appStore.address) }}
+            <font-awesome-icon icon="fa-regular fa-copy"></font-awesome-icon>
+          </span>
+          <span
+            class="py-2 hover:bg-white/30 px-2 rounded-1 flex items-center justify-between"
+            @click="logout"
+          >
+            Logout
+            <font-awesome-icon icon="fa-solid fa-right-from-bracket"></font-awesome-icon>
+          </span>
+        </span>
+      </div>
+    </div>
   </span>
   <!-- <div ref="connectBtnContainer" v-else>
     <Popover placement="bottom" :get-popup-container="() => connectBtnContainer">
@@ -59,7 +77,7 @@
   import useGraphql from '@/hooks/useGraphql';
   import Button from '@/lib/Button.vue';
   import useAppStore from '@/store/AppStore';
-  import { ShortAddress } from '@/utils';
+  import { ShortAddress, copy } from '@/utils';
   import { message } from 'ant-design-vue';
 
   const appStore = useAppStore();

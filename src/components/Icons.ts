@@ -29,6 +29,7 @@ import {
   faPause,
   faPlay,
   faRefresh,
+  faRightFromBracket,
   faShoppingBag,
   faSignOut,
   faSpinner,
@@ -73,6 +74,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   faArrowsDownToLine,
   faArrowsLeftRight,
   faXmark,
+  faRightFromBracket,
 ].forEach((icon: any) => {
   library.add(icon);
 });
