@@ -58,7 +58,7 @@
   const { x, y, width, height } = useElementBounding(selectRef);
 
   const showDropdown = ref(false);
-  const props = defineProps<{ modalValue: any; options: any[]; placeholder: string }>();
+  const props = defineProps<{ modalValue: any; options: any[]; placeholder?: string }>();
   const emits = defineEmits(['update:modalValue']);
 
   onClickOutside(boxRef, () => {

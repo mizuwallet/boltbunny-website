@@ -7,7 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AButton: typeof import('ant-design-vue/es')['Button']
     AddApplication: typeof import('./components/dashboard/Modal/AddApplication.vue')['default']
     ADrawer: typeof import('ant-design-vue/es')['Drawer']
     ApplicationAllowOrigins: typeof import('./components/dashboard/ApplicationAllowOrigins.vue')['default']
