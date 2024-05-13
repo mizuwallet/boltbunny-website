@@ -12,7 +12,7 @@
         <h1 class="title">{{ title }}</h1>
         <h2 class="sub-title">{{ subTitle }}</h2>
         <div class="flex-center mt-10">
-          <a href="">
+          <a href="javascript:void(0)" @click="startApp">
             <button>start building on Aptos</button>
           </a>
         </div>
@@ -46,8 +46,9 @@
 
 <script lang="ts" setup>
   import icon1 from '@/assets/images/index/icon_01.png';
-import icon2 from '@/assets/images/index/icon_02.png';
-import icon3 from '@/assets/images/index/icon_03.png';
+  import icon2 from '@/assets/images/index/icon_02.png';
+  import icon3 from '@/assets/images/index/icon_03.png';
+  import useAppStore from '@/store/AppStore';
 
   const title = 'Powerful Developer Infrastructure for Aptos Builders';
   const subTitle =
@@ -80,11 +81,19 @@ import icon3 from '@/assets/images/index/icon_03.png';
         'Ensure the utmost security and efficiency with our service that guarantee fast and reliable transaction execution',
     },
   ];
+
+  const appStore = useAppStore();
+  const startApp = () => {
+    if (!appStore.address) {
+      appStore.connectModalOpen = true;
+      return;
+    }
+  };
 </script>
 
 <style lang="less" scoped>
   .index-page {
-    @apply flex-col w-full ;
+    @apply flex-col w-full;
 
     .landing-section {
       @apply bg-background pt-25 flex relative overflow-hidden;

@@ -7,7 +7,7 @@
   >
     Connect Wallet
   </Button>
-  <span class="flex flex-col md:flex-row items-center gap-1 md:gap-4 w-fit" v-else>
+  <span class="flex flex-col items-center gap-1 w-fit" v-else>
     <Button
       class="!h-8 frame"
       @click="connectedHandler"
@@ -16,7 +16,7 @@
     >
       Sign In
     </Button>
-    <router-link to="/dashboard">
+    <router-link to="/dashboard" v-if="appStore.accessToken">
       <Button class="!h-8">Dashboard</Button>
     </router-link>
     <span class="flex-col items-end">
