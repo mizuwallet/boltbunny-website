@@ -46,8 +46,8 @@
 
 <script lang="ts" setup>
   import icon1 from '@/assets/images/index/icon_01.png';
-  import icon2 from '@/assets/images/index/icon_02.png';
-  import icon3 from '@/assets/images/index/icon_03.png';
+import icon2 from '@/assets/images/index/icon_02.png';
+import icon3 from '@/assets/images/index/icon_03.png';
 
   const title = 'Powerful Developer Infrastructure for Aptos Builders';
   const subTitle =
@@ -84,12 +84,10 @@
 
 <style lang="less" scoped>
   .index-page {
-    @apply flex-col w-full pt-25;
+    @apply flex-col w-full ;
 
     .landing-section {
-      // bg=[#1E2224] => bg-primary
-      // set primary in unocss.config.js theme.colors
-      @apply bg-[#1E2224] flex relative overflow-hidden;
+      @apply bg-background pt-25 flex relative overflow-hidden;
 
       .img-box {
         @apply absolute bottom-0 top-0 w-full z-1;
@@ -101,9 +99,7 @@
         @apply md:pb-40;
 
         .title {
-          // font-900 => font-extrabold
-          // leading-32px => leading-[8]
-          @apply text-4 font-900 text-white text-center leading-32px;
+          @apply text-4 font-black text-white text-center leading-[8];
           @apply md:text-8 md:leading-50px md:mt-[-20px];
           letter-spacing: 4px;
           text-transform: uppercase;
@@ -132,7 +128,7 @@
       @apply bg-[#F2F2F2] w-full px-4;
 
       .imfo-title {
-        @apply text-6 text-center font-900 text-[#1E2224] pt-6;
+        @apply text-6 text-center font-black text-background pt-6;
         @apply md:pt-14 md:pb-6;
       }
 
@@ -142,7 +138,7 @@
         margin: 80px auto 0;
 
         li {
-          @apply bg-[#1e2224] text-center relative rd-30px;
+          @apply bg-background text-center relative rd-30px;
           @apply w-100 p-12 mb-20 mx-auto;
           @apply md:mb-30;
 
@@ -165,8 +161,7 @@
           .border-bottom {
             @apply h-25px w-full absolute bottom-0 left-0 right-0;
             @apply bg-[#6DFB93];
-            // rounded-b-30px
-            border-radius: 0 0 30px 30px;
+            @apply rounded-b-30px;
           }
         }
       }
