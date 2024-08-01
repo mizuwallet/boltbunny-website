@@ -104,7 +104,7 @@
       adding.value = true;
 
       await createRule(entryFunctionRule.value as MoveFunctionId, props.appId);
-      message.success('Successfully Added');
+      message.success('Added Successfully');
       entryFunctionRule.value = '';
       init();
     } catch (e: any) {
@@ -128,7 +128,7 @@
     if (pausing.value || !rule || !switchBtnRefs.value[index]) return;
 
     if (Math.floor(dayjs().diff(dayjs(rule.updated_at)) / 1000) < RULE_CD) {
-      message.error("Shouldn't be switched so frequently");
+      message.error("Can't be switched so frequently");
       return;
     }
 
@@ -139,7 +139,7 @@
     try {
       pausing.value = true;
       await pauseRule(rule.id, status);
-      message.success('Successfully Update Rule Status!');
+      message.success('Update Rule Status Successfully!');
       init();
     } catch (e: any) {
       message.error(e.message);

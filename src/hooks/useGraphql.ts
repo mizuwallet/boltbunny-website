@@ -155,7 +155,7 @@ const useGraphql = () => {
             type
             allowed_origins
             network
-            rule {
+            rules {
               created_at
               entry_function_str
               id

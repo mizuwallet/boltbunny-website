@@ -65,7 +65,7 @@
     try {
       originValidate(origin);
       await updateOriginByAppId(props.appId, [...props.allowOrigins, origin]);
-      message.success('Successfully Added');
+      message.success('Added Successfully');
       emits('refresh');
       originURL.value = '';
     } catch (e: any) {
@@ -78,7 +78,7 @@
       const copyOfOirgins = clone(props.allowOrigins);
       remove(copyOfOirgins, (allow: any) => allow == origin);
       await updateOriginByAppId(props.appId, copyOfOirgins);
-      message.success('Successfully Removed');
+      message.success('Removed Successfully');
       emits('refresh');
       originURL.value = '';
     } catch (e: any) {
