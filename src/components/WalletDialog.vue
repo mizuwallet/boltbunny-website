@@ -30,14 +30,14 @@
 <script lang="ts" setup>
   import useWallets from '@/hooks/useWallets';
   import useAppStore from '@/store/AppStore';
-  import { Wallet, WalletReadyState } from '@aptos-labs/wallet-adapter-core';
+  import { WalletReadyState } from '@aptos-labs/wallet-adapter-core';
   import { Modal } from 'ant-design-vue';
 
   const { connect } = useWallets();
   const appStore = useAppStore();
   const emits = defineEmits(['connected']);
 
-  const connectWallet = async (wallet: Wallet) => {
+  const connectWallet = async (wallet: any) => {
     if (
       wallet.readyState === WalletReadyState.Installed ||
       wallet.readyState === WalletReadyState.Loadable

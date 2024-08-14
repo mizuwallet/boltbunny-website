@@ -36,7 +36,7 @@
         v-for="app in filterApps"
         :key="app.id"
         :data="app"
-        @click="$router.push({ path: `/dashboard/applications/${encodeURIComponent(app.name)}` })"
+        @click="router.push({ path: `/dashboard/applications/${encodeURIComponent(app.name)}` })"
       ></ApplicationItem>
     </div>
   </div>
@@ -52,6 +52,7 @@
 
   const applicationNameSearchKeyWord = ref('');
   const openAddApplicationModal = ref(false);
+  const router = useRouter();
   const { getAppListByUserId } = useGraphql();
 
   const onAddSuccess = () => {
