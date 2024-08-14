@@ -33,7 +33,7 @@ const useAppStore = defineStore('appStore', (): AppStore => {
   const balance = ref(0);
   const userId = ref();
   const accessToken = ref(window.localStorage.getItem('accessToken'));
-  const walletCore = new WalletCore(wallets);
+  const walletCore = new WalletCore(wallets, ['Petra']);
   const breakpoints = useBreakpoints(breakpointsTailwind);
   const mobileSet = computed(() => breakpoints.smaller('md').value);
 

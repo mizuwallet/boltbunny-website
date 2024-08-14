@@ -2,14 +2,14 @@
   <div class="header">
     <div class="container mx-auto flex gap-12 items-center">
       <nav class="hidden md:flex gap-1 items-center uppercase">
-        <router-link
-          :to="item.link"
+        <a
+          class="cursor-pointer"
           v-for="(item, index) in navList"
           :class="{ active: index == activeNavIndex }"
           @click="clickNav(index)"
         >
           {{ item.title }}
-        </router-link>
+        </a>
       </nav>
       <div class="flex-center md:hidden w-10 h-10" @click="openMenu = true">
         <font-awesome-icon icon="fa-solid fa-bars" class="cursor-default"></font-awesome-icon>
@@ -25,14 +25,13 @@
       style="background-color: rgba(30, 34, 36, 0.9)"
     >
       <nav class="flex flex-col gap-10 uppercase">
-        <router-link
-          :to="item.link"
+        <a
           v-for="(item, index) in navList"
           :class="{ active: index == activeNavIndex }"
           @click="clickNav(index)"
         >
           {{ item.title }}
-        </router-link>
+        </a>
         <ConnectButton class="md:hidden" placement="left"></ConnectButton>
       </nav>
     </a-drawer>
@@ -44,7 +43,7 @@
   const navList = [
     { title: 'How Does it Work?', link: '/' },
     { title: 'Why Bolt Buuny?', link: '/' },
-    { title: 'Documentation', link: '/' },
+    { title: 'Documentation', link: 'https://docs.mizu.io/docs/gas-station-sdk' },
   ];
 
   const openMenu = ref(false);
@@ -74,6 +73,10 @@
         top: heightToTop(targetDom) - 100,
         behavior: 'smooth',
       });
+    }
+
+    if (index == 2) {
+      window.open(navList[index].link, '_blank');
     }
   };
 </script>

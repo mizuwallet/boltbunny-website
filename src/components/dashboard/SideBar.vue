@@ -36,7 +36,7 @@
           :key="index"
           :class="{
             active:
-              ($route.meta.parent === navItem.key && navItem.key) || $route.path === navItem.path,
+              (route.meta.parent === navItem.key && navItem.key) || route.path === navItem.path,
           }"
           @click="emits('nav-click', navItem)"
         >
@@ -67,6 +67,7 @@
   defineProps<{
     collapsed: boolean;
   }>();
+  const route = useRoute();
   const emits = defineEmits(['update:collapsed', 'nav-click']);
   const sidebar = ref();
 </script>
